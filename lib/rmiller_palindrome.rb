@@ -1,16 +1,28 @@
 require "rmiller_palindrome/version"
 
-class String
+module RMillerPalindrome
 
-# Returns true for palidromes, false otherwise.
-def palindrome?
-  processed_content == processed_content.reverse
+  # Returns true for a palindrome, false otherwise.
+  def palindrome?
+    if processed_content.empty?
+      false
+    else
+      processed_content == processed_content.reverse
+    end
+  end
+
+  private
+
+    # Returns content for palindrome testing.
+    def processed_content
+      to_s.scan(/[a-z0-9]/i).join.downcase
+    end
 end
 
-private
+class String
+  include RMillerPalindrome
+end
 
-  # Returns content for palidrome testing.
-  def processed_content
-    self.scan(/[a-z]/i).join.downcase
-  end
+class Integer
+  include RMillerPalindrome
 end
